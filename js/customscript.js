@@ -107,7 +107,7 @@ if (request){
         console.log("Local news for East Palo Alto, CA continually updated from thousands of sources on the web.: " + el.find("Local news for East Palo Alto, CA continually updated from thousands of sources on the web.").text()); 
       }); 
     };
-    request.onreadystatechange = handler;
+    //request.onreadystatechange = handler;
     request.send();
 }
 
