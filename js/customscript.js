@@ -81,7 +81,37 @@ jQuery(document).ready(function($){
 }); //END -- JQUERY document.ready
 
 
-  $.get("http://www.topix.com/rss/city/east-palo-alto-ca.xml", function (data) {
+function createCORSRequest(method, url){
+    var xhr = new XMLHttpRequest();
+    if ("withCredentials" in xhr){
+        xhr.open(method, url, true);
+    } else if (typeof XDomainRequest != "undefined"){
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+    } else {
+        xhr = null;
+    }
+    return xhr;
+}
+
+
+var request = createCORSRequest("get", "http://www.stackoverflow.com/");
+if (request){
+    request.onload = function(data) {
+        $(data).find("channel").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+
+        console.log("------------------------");
+        console.log("East Palo Alto News: " + el.find("East Palo Alto News").text());
+        console.log("author     : " + el.find("author").text());
+        console.log("Local news for East Palo Alto, CA continually updated from thousands of sources on the web.: " + el.find("Local news for East Palo Alto, CA continually updated from thousands of sources on the web.").text()); 
+      }); 
+    };
+    request.onreadystatechange = handler;
+    request.send();
+}
+
+  /*$.get("http://www.topix.com/rss/city/east-palo-alto-ca.xml", function (data) {
   $(data).find("channel").each(function () { // or "item" or whatever suits your feed
     var el = $(this);
 
@@ -90,7 +120,7 @@ jQuery(document).ready(function($){
     console.log("author     : " + el.find("author").text());
     console.log("Local news for East Palo Alto, CA continually updated from thousands of sources on the web.: " + el.find("Local news for East Palo Alto, CA continually updated from thousands of sources on the web.").text()); 
   }); 
-});
+});*/
 
 // $.ajax({
 //   url      : document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent("http://www.topix.com/rss/city/east-palo-alto-ca.xml"),
