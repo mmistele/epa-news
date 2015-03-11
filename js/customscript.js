@@ -95,7 +95,7 @@ function createCORSRequest(method, url){
 }
 
 
-var request = createCORSRequest("get", "http://www.stackoverflow.com/");
+var request = createCORSRequest("get", "http://www.topix.com/rss/city/east-palo-alto-ca.xml");
 if (request){
     request.onload = function(data) {
         $(data).find("channel").each(function () { // or "item" or whatever suits your feed
